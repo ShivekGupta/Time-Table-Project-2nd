@@ -1,0 +1,349 @@
+/* FocusMode.css - The Kraken Hourglass Theme */
+
+.focus-mode-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 40px 0;
+  perspective: 1000px;
+}
+
+.kraken-card {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  padding: 40px 20px;
+  background: rgba(11, 29, 58, 0.7);
+  border: 2px solid #b8860b;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Barnacle/Wood Texture overlay */
+.kraken-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.kraken-title {
+  font-size: 26px;
+  font-weight: 900;
+  color: #ffca28;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.kraken-subtitle {
+  color: #a0aec0;
+  margin-bottom: 30px;
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+
+/* Hourglass Structure */
+.hourglass-wrapper {
+  margin: 0 auto 30px;
+  width: 200px;
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.wood-cap {
+  width: 140px;
+  height: 20px;
+  background: linear-gradient(180deg, #5c4033, #3e2723);
+  border: 2px solid #2a1610;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 2px 5px rgba(255,255,255,0.1);
+  z-index: 3;
+}
+
+.glass-bulb {
+  width: 120px;
+  height: 110px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  box-shadow: inset 10px 0 20px rgba(255,255,255,0.05), inset -10px 0 20px rgba(255,255,255,0.05);
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.glass-bulb.top {
+  border-radius: 10px 10px 50% 50% / 10px 10px 100% 100%;
+  border-bottom: none;
+}
+
+.glass-bulb.bottom {
+  border-radius: 50% 50% 10px 10px / 100% 100% 10px 10px;
+  border-top: none;
+}
+
+.glass-neck {
+  width: 40px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 3px solid rgba(255, 255, 255, 0.2);
+  border-right: 3px solid rgba(255, 255, 255, 0.2);
+  z-index: 2;
+}
+
+/* Sand Elements */
+.sand {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, #d4af37, #ffd700, #b8860b);
+  box-shadow: inset 0 10px 20px rgba(0,0,0,0.2);
+  transition: height 1s linear;
+}
+
+.sand-top {
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+}
+
+.sand-bottom {
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+
+.sand-stream {
+  position: absolute;
+  top: 130px; /* Starts exactly at the neck */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 0;
+  background: #ffd700;
+  box-shadow: 0 0 10px #d4af37;
+  z-index: 1;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+
+.sand-stream.active {
+  height: 110px; /* Drops down to the bottom bulb */
+  opacity: 1;
+  animation: fall 0.5s infinite linear;
+}
+
+@keyframes fall {
+  0% { background: linear-gradient(180deg, transparent, #ffd700); }
+  100% { background: linear-gradient(180deg, #ffd700, transparent); }
+}
+
+/* Digital Time Readout */
+.nautical-time {
+  position: absolute;
+  bottom: -40px;
+  font-size: 56px;
+  font-weight: 900;
+  font-family: var(--font-title);
+  color: #ffca28;
+  text-shadow: 0 0 20px rgba(0,0,0,1), 0 5px 10px rgba(0,0,0,0.8);
+  font-variant-numeric: tabular-nums;
+  z-index: 4;
+  letter-spacing: 2px;
+}
+
+/* Buttons */
+.nautical-btn-group {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  margin-top: 40px;
+}
+
+.nautical-btn {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 800;
+  border-radius: 6px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+  font-family: var(--font-main);
+}
+
+.nautical-btn.primary {
+  background: #b8860b;
+  color: #000;
+  border: 2px solid #ffd700;
+  box-shadow: 0 4px 15px rgba(212,175,55,0.3);
+}
+
+.nautical-btn.primary:hover {
+  background: #ffd700;
+  transform: translateY(-2px);
+}
+
+.nautical-btn.primary.active {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  border-color: #ef4444;
+  box-shadow: 0 4px 15px rgba(239,68,68,0.2);
+}
+
+.nautical-btn.primary.active:hover {
+  background: rgba(239, 68, 68, 0.3);
+}
+
+.nautical-btn.secondary {
+  background: transparent;
+  color: #e2e8f0;
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+.nautical-btn.secondary:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.4);
+}
+
+.nautical-modes {
+/* Co-op UI Styles */
+.coop-toggle-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.coop-toggle-container {
+  background: rgba(0,0,0,0.4);
+  border-radius: 20px;
+  padding: 4px;
+  display: flex;
+  gap: 4px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.coop-toggle-btn {
+  border: none;
+  padding: 6px 16px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.85rem;
+  font-weight: bold;
+  background: transparent;
+  color: #a0aec0;
+/* Co-op UI Styles */
+.coop-toggle-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.coop-toggle-container {
+  background: rgba(0,0,0,0.4);
+  border-radius: 20px;
+  padding: 4px;
+  display: flex;
+  gap: 4px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.coop-toggle-btn {
+  border: none;
+  padding: 6px 16px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.85rem;
+  font-weight: bold;
+  background: transparent;
+  color: #a0aec0;
+}
+
+.coop-toggle-btn.active-solo {
+  background: #b8860b;
+  color: #000;
+}
+
+.coop-toggle-btn.active-coop {
+  background: #10b981;
+  color: #fff;
+}
+
+.coop-fleet-container {
+  margin-top: 25px;
+  background: rgba(0,0,0,0.3);
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+.coop-fleet-title {
+  font-size: 0.9rem;
+  color: #10b981;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.coop-fleet-users {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.coop-user-card {
+  text-align: center;
+}
+
+.coop-user-avatar {
+  font-size: 1.5rem;
+}
+
+.coop-user-avatar.synced {
+  filter: drop-shadow(0 0 8px rgba(16,185,129,0.8));
+}
+
+.coop-user-name {
+  font-size: 0.8rem;
+  color: #a0aec0;
+  margin-top: 4px;
+}
+
+.coop-user-status {
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+.coop-user-status.focusing {
+  color: #10b981;
+}
+
+.coop-user-status.break {
+  color: #3b82f6;
+}
+
+.coop-user-status.paused {
+  color: #f59e0b;
+}
+
+.coop-user-status.idle {
+  color: #a0aec0;
+}
