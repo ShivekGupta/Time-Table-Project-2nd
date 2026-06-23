@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { audioSynth } from '../utils/audioSynth';
 
-const PirateMap = ({ onNavigate, isAudioPlaying, activeTab, onFindTreasure }) => {
+const PirateMap = ({ onNavigate, isAudioPlaying, activeTab, onFindTreasure, treasureCount, setTreasureCount }) => {
   const containerRef = useRef(null);
   const glassRef = useRef(null);
   const [isShiftDown, setIsShiftDown] = useState(false);
@@ -16,7 +16,7 @@ const PirateMap = ({ onNavigate, isAudioPlaying, activeTab, onFindTreasure }) =>
   const [theme, setTheme] = useState('default');
   const [easterEggFound, setEasterEggFound] = useState(false);
 
-  const [doubloons, setDoubloons] = useState(() => {
+  const [mapDoubloons, setMapDoubloons] = useState(() => {
     const saved = localStorage.getItem('pirate_map_doubloons');
     if (saved) return JSON.parse(saved);
     return [
@@ -28,7 +28,7 @@ const PirateMap = ({ onNavigate, isAudioPlaying, activeTab, onFindTreasure }) =>
     ];
   });
 
-  const foundCount = doubloons.filter(d => d.found).length;
+  const foundCount = mapDoubloons.filter(d => d.found).length;
   let shipIcon = '🛶';
   let shipName = 'Leaky Raft';
   let shipLevel = 1;
@@ -42,13 +42,13 @@ const PirateMap = ({ onNavigate, isAudioPlaying, activeTab, onFindTreasure }) =>
   }, [visitedIslands]);
 
   useEffect(() => {
-    localStorage.setItem('pirate_map_doubloons', JSON.stringify(doubloons));
-  }, [doubloons]);
+    localStorage.setItem('pirate_map_doubloons', JSON.stringify(mapDoubloons));
+  }, [mapDoubloons]);
 
   const handleDoubloonClick = (d) => {
     if (d.found) return;
     if (isAudioPlaying) audioSynth.playCoinSound();
-    setDoubloons(prev => prev.map(db => db.id === d.id ? { ...db, found: true } : db));
+    setMapDoubloons(prev => prev.map(db => db.id === d.id ? { ...db, found: true } : db));
     if (onFindTreasure) onFindTreasure();
   };
 
@@ -238,7 +238,7 @@ const PirateMap = ({ onNavigate, isAudioPlaying, activeTab, onFindTreasure }) =>
       <div style={{ position: 'absolute', top: '20px', left: '20px', zIndex: 100, display: 'flex', flexDirection: 'column', gap: '10px', background: 'rgba(0,0,0,0.7)', padding: '15px', borderRadius: '10px', border: '1px solid #d97706' }}>
         <h3 style={{ color: '#fbbf24', margin: '0 0 10px 0', fontSize: '1.2rem', display: 'flex', justifyContent: 'space-between' }}>
           <span>🏴‍☠️ Pirate Shop</span>
-          <span>🪙 {doubloons}</span>
+          <span>🪙 {treasureCount}</span>
         </h3>
         <div style={{ display: 'flex', gap: '10px' }}>
           <button 
@@ -250,8 +250,8 @@ const PirateMap = ({ onNavigate, isAudioPlaying, activeTab, onFindTreasure }) =>
             onClick={() => {
               const unlocked = JSON.parse(localStorage.getItem('pirate_unlocked_snow') || 'false');
               if (unlocked) { setTheme('snow'); return; }
-              if (doubloons >= 10) {
-                setDoubloons(d => d - 10);
+              if (treasureCount >= 10) {
+                setTreasureCount(d => d - 10);
                 localStorage.setItem('pirate_unlocked_snow', 'true');
                 setTheme('snow');
                 if (isAudioPlaying) audioSynth.playClickSound();
@@ -268,8 +268,8 @@ const PirateMap = ({ onNavigate, isAudioPlaying, activeTab, onFindTreasure }) =>
             onClick={() => {
               const unlocked = JSON.parse(localStorage.getItem('pirate_unlocked_fog') || 'false');
               if (unlocked) { setTheme('fog'); return; }
-              if (doubloons >= 15) {
-                setDoubloons(d => d - 15);
+              if (treasureCount >= 15) {
+                setTreasureCount(d => d - 15);
                 localStorage.setItem('pirate_unlocked_fog', 'true');
                 setTheme('fog');
                 if (isAudioPlaying) audioSynth.playClickSound();
@@ -373,7 +373,7 @@ const PirateMap = ({ onNavigate, isAudioPlaying, activeTab, onFindTreasure }) =>
         </div>
 
         {/* Hidden Doubloons */}
-        {doubloons.map(d => !d.found && (
+        {mapDoubloons.map(d => !d.found && (
           <div 
             key={d.id}
             className="hidden-doubloon"

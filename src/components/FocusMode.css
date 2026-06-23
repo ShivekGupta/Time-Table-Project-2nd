@@ -216,35 +216,6 @@
   border-color: rgba(255,255,255,0.4);
 }
 
-.nautical-modes {
-/* Co-op UI Styles */
-.coop-toggle-wrapper {
-  display: flex;
-  justify-content: center;
-  margin: 15px 0;
-  position: relative;
-  z-index: 1;
-}
-
-.coop-toggle-container {
-  background: rgba(0,0,0,0.4);
-  border-radius: 20px;
-  padding: 4px;
-  display: flex;
-  gap: 4px;
-  border: 1px solid rgba(255,255,255,0.1);
-}
-
-.coop-toggle-btn {
-  border: none;
-  padding: 6px 16px;
-  border-radius: 16px;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-size: 0.85rem;
-  font-weight: bold;
-  background: transparent;
-  color: #a0aec0;
 /* Co-op UI Styles */
 .coop-toggle-wrapper {
   display: flex;

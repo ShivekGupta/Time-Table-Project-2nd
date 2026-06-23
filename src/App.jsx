@@ -239,7 +239,7 @@ export default function App() {
       
       <div className="map-background" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
         <GlobalCanvas activeTab={activeTab} avatar={avatar} burstTrigger={burstTrigger} isChatOpen={isChatOpen} messageCount={chatMessages.length} onFindTreasure={handleFindTreasure} />
-        <PirateMap onNavigate={handleNavigate} isAudioPlaying={isAudioPlaying} activeTab={activeTab} onFindTreasure={handleFindTreasure} />
+        <PirateMap onNavigate={handleNavigate} isAudioPlaying={isAudioPlaying} activeTab={activeTab} onFindTreasure={handleFindTreasure} treasureCount={treasureCount} setTreasureCount={setTreasureCount} />
       </div>
 
       <header className="top-header theme-transition" style={{ position: 'absolute', top: 0, left: 0, right: 0, zIndex: 100 }}>
